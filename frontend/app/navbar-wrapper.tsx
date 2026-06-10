@@ -10,6 +10,7 @@ import { fetchUserProfile } from "@/lib/feauters/user/userSlice";
 
 function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Fetch user from redux state
@@ -38,32 +39,38 @@ function Navbar() {
     { href: "/favourites", label: "Favorites", icon: Heart },
   ];
 
+  const isActiveRoute = (href: string) => pathname === href;
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between py-4 px-6 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800/50 shadow-lg">
+    <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between border-b border-white/10 bg-slate-950/80 px-4 py-4 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-6">
       {/* Logo Section */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-lg shadow-lg">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 via-orange-500 to-amber-400 shadow-lg shadow-red-500/30">
           <Film className="w-6 h-6 text-white" />
         </div>
         <div className="flex flex-col">
-          <span className="font-bold text-xl text-white tracking-tight">
+          <span className="text-xl font-semibold tracking-tight text-white">
             MovieRec
           </span>
-          <span className="text-xs text-gray-400 -mt-1 hidden sm:block">
+          <span className="-mt-1 hidden text-xs text-white/50 sm:block">
             Your Mood. Your Movie.
           </span>
         </div>
       </div>
 
       {/* Desktop Navigation Links */}
-      <div className="hidden md:flex items-center gap-8">
+      <div className="hidden items-center gap-2 md:flex">
         {navigationItems.map((item) => {
           const Icon = item.icon;
           return (
             <a
               key={item.href}
               href={item.href}
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-200 font-medium"
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                isActiveRoute(item.href)
+                  ? "bg-white/10 text-white shadow-inner"
+                  : "text-white/70 hover:bg-white/5 hover:text-white"
+              }`}
             >
               <Icon className="w-4 h-4" />
               {item.label}
@@ -73,19 +80,19 @@ function Navbar() {
       </div>
 
       {/* Desktop User Info & Logout */}
-      <div className="hidden md:flex items-center gap-4">
+      <div className="hidden items-center gap-4 md:flex">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-white/20 to-white/10">
             <User className="w-4 h-4 text-white" />
           </div>
-          <span className="font-medium text-gray-200 text-sm max-w-[160px] truncate">
+          <span className="max-w-[160px] truncate text-sm font-medium text-white/80">
             {user?.name ?? user?.email ?? "User"}
           </span>
         </div>
         <Button
           variant="ghost"
           onClick={handleSignOut}
-          className="flex items-center gap-2 text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors duration-200"
+          className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 text-red-300 transition-colors duration-200 hover:bg-red-500/20 hover:text-red-200"
         >
           <LogOut className="w-4 h-4" />
           <span className="hidden lg:block">Sign Out</span>
@@ -93,9 +100,9 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu Button */}
-      <div className="md:hidden flex items-center gap-2">
+      <div className="flex items-center gap-2 md:hidden">
         {/* Mobile User Avatar */}
-        <div className="w-8 h-8 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
           <User className="w-4 h-4 text-white" />
         </div>
 
@@ -104,7 +111,7 @@ function Navbar() {
           variant="ghost"
           size="sm"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-gray-300 hover:text-white hover:bg-gray-800/50 p-2"
+          className="p-2 text-white/70 hover:bg-white/10 hover:text-white"
         >
           {isMobileMenuOpen ? (
             <X className="w-6 h-6" />
@@ -124,24 +131,21 @@ function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-black border-l border-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out z-50 md:hidden ${
+        className={`fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] transform border-l border-white/10 bg-slate-950 shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{
-          backgroundColor: isMobileMenuOpen ? "rgba(17,24,39,0.98)" : undefined, // Tailwind's gray-900 with opacity
-        }}
       >
         {/* Mobile Menu Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-800">
+        <div className="flex items-center justify-between border-b border-white/10 p-6">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-lg shadow-lg">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 via-orange-500 to-amber-400 shadow-lg shadow-red-500/30">
               <Film className="w-6 h-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-white tracking-tight">
+              <span className="text-lg font-semibold tracking-tight text-white">
                 MovieRec
               </span>
-              <span className="text-xs text-gray-400 -mt-1">
+              <span className="-mt-1 text-xs text-white/50">
                 Your Mood. Your Movie.
               </span>
             </div>
@@ -150,25 +154,25 @@ function Navbar() {
             variant="ghost"
             size="sm"
             onClick={closeMobileMenu}
-            className="text-gray-400 hover:text-white p-2"
+            className="p-2 text-white/60 hover:bg-white/10 hover:text-white"
           >
             <X className="w-5 h-5" />
           </Button>
         </div>
 
         {/* Mobile Menu Content */}
-        <div className="flex flex-col bg-gray-800 border-gray-800 border ">
+        <div className="flex flex-col">
           {/* User Info Section */}
-          <div className="p-6 border-b border-gray-900">
+          <div className="border-b border-white/10 p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10">
                 <User className="w-6 h-6 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="font-medium text-white text-sm">
+                <span className="text-sm font-medium text-white">
                   Welcome back!
                 </span>
-                <span className="text-gray-400 text-xs truncate max-w-[200px]">
+                <span className="max-w-[200px] truncate text-xs text-white/50">
                   {user?.name ?? user?.email ?? "User"}
                 </span>
               </div>
@@ -180,14 +184,18 @@ function Navbar() {
             const Icon = item.icon;
             return (
               <div
-                className="flex-1 py-6 border-t border-gray-900"
+                className="flex-1 border-t border-white/10 py-6"
                 key={item.href} // <-- add key here
               >
                 <div className="space-y-2 px-6">
                   <a
                     href={item.href}
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors duration-200 font-medium"
+                    className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-colors duration-200 ${
+                      isActiveRoute(item.href)
+                        ? "bg-white/10 text-white"
+                        : "text-white/70 hover:bg-white/5 hover:text-white"
+                    }`}
                   >
                     <Icon className="w-5 h-5" />
                     {item.label}
@@ -198,13 +206,13 @@ function Navbar() {
           })}
 
           {/* Sign Out Button */}
-          <div className="p-6 border-t border-gray-900">
+          <div className="border-t border-white/10 p-6">
             <button
               onClick={() => {
                 handleSignOut();
                 closeMobileMenu();
               }}
-              className="flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-900/20 rounded-lg transition-colors duration-200 font-medium w-full text-left"
+              className="flex w-full items-center gap-3 rounded-2xl border border-red-500/20 px-4 py-3 text-left font-medium text-red-300 transition-colors duration-200 hover:bg-red-500/10 hover:text-red-200"
             >
               <LogOut className="w-5 h-5" />
               Sign Out

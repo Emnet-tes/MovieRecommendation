@@ -15,24 +15,24 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
     const router = useRouter();
   return (
      <div
-      className="cursor-pointer w-[150px] md:w-[220px] hover:scale-105 transition transform"
+      className="group w-full max-w-[220px] cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
       onClick={() => router.push(`/movies/${movie._id}`)}
     >
-       <div className="w-[160px] sm:w-[180px] md:w-[200px] lg:w-[220px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-105 group">
-      <div className="relative">
+       <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl transition duration-300 group-hover:border-white/20">
+      <div className="relative aspect-[2/3]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
           width={200}
           height={300}
           alt={movie.title}
-          className="h-[260px] sm:h-[280px] md:h-[300px] lg:h-[330px] w-full object-cover rounded-lg"
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
          {/* Favorite Button */}
-          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <FavoriteButton movieId={movie._id} movieTitle={movie.title} moviePosterPath={movie.posterPath} size="sm" />
           </div>
 
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/60 to-transparent px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent px-4 py-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <h3 className="text-base font-semibold text-white truncate">
             {movie.title}
           </h3>

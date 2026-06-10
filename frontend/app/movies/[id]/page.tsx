@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks/useRedux";
 import { fetchMovieById } from "@/lib/feauters/movie/movieSlice";
 import FavoriteButton from "@/app/components/favorite-button";
 import TrailerModal from "@/app/components/trailer-modal";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 
 const formatRuntime = (runtime: number): string => {
@@ -20,6 +22,7 @@ const formatRuntime = (runtime: number): string => {
 
 const MovieDetailPage = () => {
   const params = useParams();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const {
@@ -55,7 +58,17 @@ const MovieDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white px-6 py-20">
+    <div className="min-h-screen bg-gray-800 px-6 pt-28 pb-12 text-white sm:pt-32">
+      <div className="mx-auto mb-6 max-w-5xl">
+        <Button
+          onClick={() => router.back()}
+          variant="ghost"
+          className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-white/80 hover:bg-white/10 hover:text-white"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to movies
+        </Button>
+      </div>
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
         <div className="relative">
           <Image
