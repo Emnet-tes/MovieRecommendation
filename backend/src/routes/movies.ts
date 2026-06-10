@@ -1,8 +1,37 @@
 import { Router } from "express";
-import Mood from "../Models/Mood";
-import Movie from "../Models/Movie";
-import Genre from "../Models/Genre";
+import mongoose, { Schema } from "mongoose";
 import { mapGenresToMoodIds } from "../utils/genreToMoodMapper";
+
+const MoodSchema = new Schema({
+  name: { type: String, required: true },
+  genreIds: [Number],
+});
+
+const GenreSchema = new Schema({
+  genreId: { type: Number, required: true },
+  name: { type: String, required: true },
+});
+
+const MovieSchema = new Schema({
+  movieId: { type: Number, unique: true },
+  title: String,
+  originalTitle: String,
+  overview: String,
+  posterPath: String,
+  backdropPath: String,
+  releaseDate: String,
+  runtime: Number,
+  popularity: Number,
+  voteAverage: Number,
+  voteCount: Number,
+  trailerKey: String,
+  genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
+  moods: [{ type: Schema.Types.ObjectId, ref: "Mood" }],
+});
+
+const Mood = mongoose.models.Mood || mongoose.model("Mood", MoodSchema);
+const Genre = mongoose.models.Genre || mongoose.model("Genre", GenreSchema);
+const Movie = mongoose.models.Movie || mongoose.model("Movie", MovieSchema);
 
 const router = Router();
 
@@ -56,7 +85,6 @@ const saveMovie = async (req: any, res: any) => {
 
 const getMoviesByMood = async (req: any, res: any) => {
   try {
-    Genre.modelName;
     const moodQuery = req.query.mood as string;
     const page = parseInt(req.query.page as string) || 1;
     const limit = 20;

@@ -1,5 +1,12 @@
 import { Router } from "express";
-import Mood from "../Models/Mood";
+import mongoose, { Schema } from "mongoose";
+
+const MoodSchema = new Schema({
+	name: { type: String, required: true },
+	genreIds: [Number],
+});
+
+const Mood = mongoose.models.Mood || mongoose.model("Mood", MoodSchema);
 
 const router = Router();
 
