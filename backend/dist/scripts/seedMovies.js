@@ -21,7 +21,7 @@ const seedMovies = async () => {
         console.log("🔌 Connected to MongoDB");
         for (let page = 1; page <= 50; page++) {
             console.log(`📄 Fetching page ${page}`);
-            const response = await (0, node_fetch_1.default)(`https://api.themoviedb.org/3/movie/popular?page=${page}`, { headers });
+            const response = await (0, node_fetch_1.default)(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=${page}&sort_by=popularity.desc`, { headers });
             const data = (await response.json());
             if (!data.results || !Array.isArray(data.results)) {
                 console.error(`❌ Invalid data on page ${page}:`, data);
