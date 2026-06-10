@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Genre from "../Models/Genre";
+import Genre from "../models/Genre";
 
 dotenv.config();
 

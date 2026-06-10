@@ -1,7 +1,7 @@
 import type { Request, Response } from "express"
 import type { Types } from "mongoose"
-import Favorite, { type IFavorite } from "../Models/favorities"
 import type { ApiResponse, FavoriteResponse, CheckFavoriteResponse } from "../types/api.js"
+import Favorite, { IFavorite } from "../models/favorities.js"
 
 // Helper function to convert IFavorite to FavoriteResponse
 const toFavoriteResponse = (favorite: IFavorite): FavoriteResponse => ({

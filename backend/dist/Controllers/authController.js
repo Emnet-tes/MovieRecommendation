@@ -7,7 +7,7 @@ exports.fetchMe = exports.login = exports.signup = void 0;
 const axios_1 = __importDefault(require("axios"));
 const auth0_1 = require("../utils/auth0");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const Users_1 = require("../Models/Users");
+const Users_1 = require("../models/Users");
 const signup = async (req, res) => {
     const { email, password, name } = req.body; // <-- add name
     try {

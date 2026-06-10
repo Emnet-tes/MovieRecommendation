@@ -1,9 +1,8 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { getManagementToken } from "../utils/auth0";
-import connectDB from "../config/db";
 import jwt from "jsonwebtoken";
-import { User } from "../Models/Users";
+import { User } from "../models/Users";
 
 export const signup = async (req: Request, res: Response) => {
   const { email, password, name } = req.body; // <-- add name

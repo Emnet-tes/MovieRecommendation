@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkFavoriteStatus = exports.removeFromFavorites = exports.addToFavorites = exports.getUserFavorites = void 0;
-const favorities_1 = __importDefault(require("../Models/favorities"));
+const favorities_js_1 = __importDefault(require("../models/favorities.js"));
 // Helper function to convert IFavorite to FavoriteResponse
 const toFavoriteResponse = (favorite) => ({
     _id: favorite._id.toString(),
@@ -26,7 +26,7 @@ const getUserFavorites = async (req, res) => {
             });
             return;
         }
-        const favorites = await favorities_1.default.find({ userId }).sort({ createdAt: -1 });
+        const favorites = await favorities_js_1.default.find({ userId }).sort({ createdAt: -1 });
         const favoriteResponses = favorites.map(toFavoriteResponse);
         res.status(200).json({
             success: true,
@@ -63,7 +63,7 @@ const addToFavorites = async (req, res) => {
             return;
         }
         // Check if already favorited
-        const existingFavorite = await favorities_1.default.findOne({ userId, movieId });
+        const existingFavorite = await favorities_js_1.default.findOne({ userId, movieId });
         if (existingFavorite) {
             res.status(409).json({
                 success: false,
@@ -71,7 +71,7 @@ const addToFavorites = async (req, res) => {
             });
             return;
         }
-        const favorite = new favorities_1.default({
+        const favorite = new favorities_js_1.default({
             userId,
             movieId,
             movieTitle,
@@ -113,7 +113,7 @@ const removeFromFavorites = async (req, res) => {
             });
             return;
         }
-        const deletedFavorite = await favorities_1.default.findOneAndDelete({ userId, movieId });
+        const deletedFavorite = await favorities_js_1.default.findOneAndDelete({ userId, movieId });
         if (!deletedFavorite) {
             res.status(404).json({
                 success: false,
@@ -155,7 +155,7 @@ const checkFavoriteStatus = async (req, res) => {
             });
             return;
         }
-        const favorite = await favorities_1.default.findOne({ userId, movieId });
+        const favorite = await favorities_js_1.default.findOne({ userId, movieId });
         res.status(200).json({
             success: true,
             data: { isFavorite: !!favorite },

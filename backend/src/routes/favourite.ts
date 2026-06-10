@@ -5,7 +5,7 @@ import {
   addToFavorites,
   removeFromFavorites,
   checkFavoriteStatus,
-} from "../Controllers/favoriteController"
+} from "../controllers/favoriteController"
 
 const router: Router = Router()
 

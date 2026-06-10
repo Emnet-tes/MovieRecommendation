@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
-const Movie_1 = __importDefault(require("../Models/Movie"));
+const Movie_1 = __importDefault(require("../models/Movie"));
 const genreToMoodMapper_1 = require("../utils/genreToMoodMapper");
-const Genre_1 = __importDefault(require("../Models/Genre"));
+const Genre_1 = __importDefault(require("../models/Genre"));
 dotenv_1.default.config();
 const API_TOKEN = process.env.TMDB_API_TOKEN;
 const headers = {

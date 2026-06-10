@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const Mood_1 = __importDefault(require("../Models/Mood"));
+const Mood_1 = __importDefault(require("../models/Mood"));
 dotenv_1.default.config();
 const moods = [
     { name: "happy", genreIds: [35, 10751, 10402] }, // Comedy, Family, Music
