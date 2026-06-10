@@ -42,7 +42,7 @@ const seedMovies = async () => {
     for (let page = 1; page <= 50; page++) {
       console.log(`📄 Fetching page ${page}`);
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?page=${page}`,
+        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=${page}&sort_by=popularity.desc`,
         { headers }
       );
 
