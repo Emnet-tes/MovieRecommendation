@@ -118,9 +118,10 @@ const movieSlice = createSlice({
 
       // Movie by ID
       .addCase(fetchMovieById.pending, (state) => {
-        if (!state.selectedMovie) {
-          state.loading = true;
-        }
+        // Always show loading state and clear previous selection
+        // to avoid briefly rendering the previous movie while the new one loads.
+        state.loading = true;
+        state.selectedMovie = null;
       })
       .addCase(fetchMovieById.fulfilled, (state, action) => {
         state.selectedMovie = action.payload;

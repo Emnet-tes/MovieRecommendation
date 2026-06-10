@@ -147,7 +147,7 @@ export default function MovieHero() {
           >
             <Button
               onClick={() => router.push("/dashboard")}
-              className="cursor-pointer group relative overflow-hidden rounded-full px-6 py-6 font-medium text-white shadow-xl shadow-rose-500/20 transition-transform hover:scale-[1.03]"
+              className="group relative overflow-hidden rounded-full px-6 py-6 font-medium text-white shadow-xl shadow-rose-500/20 transition-transform hover:scale-[1.03]"
               style={{
                 background: "linear-gradient(135deg, #e11d48 0%, #f97316 100%)",
               }}
